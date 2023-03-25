@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>经营性房屋投资计算</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      background-color: #f7f7f7;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    input[type="button"] {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+    input[type="button"]:hover {
+      background-color: #3e8e41;
+    }
+    input[type="reset"] {
+      padding: 10px;
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    input[type="reset"]:hover {
+      background-color: #c62828;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>经营性房屋投资计算器</h1>
+    <form>
+      <label>房屋面积（平方米）</label>
+      <input type="text" id="area" placeholder="请输入房屋面积">
+      <label>单价（元/平方米）</label>
+      <input type="text" id="price" placeholder="请输入单价">
+      <label>贷款金额（元）</label>
+      <input type="text" id="loan" placeholder="请输入贷款金额">
+      <label>利率（%）</label>
+      <input type="text" id="rate" placeholder="请输入利率">
+      <label>租金总额（元）</label>
+      <input type="text" id="rent" placeholder="请输入租金总额">
+      <input type="button" value="计算" onclick="calculate()">
+      <input type="reset" value="重置">
+    </form>
+    <table id="result" style="display: none;">
+      <tr>
+        <th>房屋总价（元）</th>
+        <td id="total"></td>
+      </tr>
+      <tr>
+        <th>月利息（元）</th>
+        <td id="interest"></td>
+      </tr>
+      <tr>
+        <th>月租金收入（元）</th>
+        <td id="income"></td>
+      </tr>
+      <tr>
+        <th>贷租差（元）</th>
+        <td id="diff"></td>
+      </tr>
+    </table>
+  </div>
+  <script>
+    function calculate() {
+      // 获取输入框的值
+      var area = parseFloat(document.getElementById("area").value);
+      var price = parseFloat(document.getElementById("price").value);
+      var loan = parseFloat(document.getElementById("loan").value);
+      var rate = parseFloat(document.getElementById("rate").value);
+      var rent = parseFloat(document.getElementById("rent").value);
+
+      // 计算结果
+      var total = area * price;
+      var interest = loan * rate / 1200;
+      var income = rent / 12;
+      var diff = income - interest;
+
+      // 显示结果
+      document.getElementById("total").innerHTML = total.toFixed(2);
+      document.getElementById("interest").innerHTML = interest.toFixed(2);
+      document.getElementById("income").innerHTML = income.toFixed(2);
+      document.getElementById("diff").innerHTML = diff.toFixed(2);
+
+      // 显示表格
+      document.getElementById("result").style.display = "table";
+    }
+
+    function resetForm() {
+      // 重置输入框的值
+      document.getElementById("area").value = "";
+      document.getElementById("price").value = "";
+      document.getElementById("loan").value = "";
+      document.getElementById("rate").value = "";
+      document.getElementById("rent").value = "";
+
+      // 隐藏表格
+      document.getElementById("result").style.display = "none";
+    }
+
+    // 监听重置按钮的点击事件
+    document.querySelector("input[type=reset]").addEventListener("click", resetForm);
+  </script>
+</body>
+</html>
